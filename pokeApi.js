@@ -1,7 +1,7 @@
 var axios = require('axios')
 var user = require('readline-sync')
 
-var ids = ['150: mewtwo', '149: dragonite','140: articuno' ]
+var ids = ['150: mewtwo', '149: dragonite','140: articuno', ]
 var pokedecks= []
 
 function mostraDados(){
@@ -35,7 +35,7 @@ var id = user.question('digite um numero para pegar um Pokemon: ')
 axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
 .then(resultado =>{
     
-    console.log(`vc pegou o ${resultado.data.name}!!! \n o numero q vc digitou corresponde ao id do pokemon ${id}`)
+    console.log(`vc pegou o ${resultado.data.name}!!! \n o numero q vc digitou corresponde ao id do pokemon: ${id}`)
     console.log('\n')
     menu()
 
@@ -44,7 +44,7 @@ axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
 .catch(erro=>{
     console.log('erro ao conectar', erro)
 })
-return 'boa treinador'
+return console.log('boa treinador')
 
 } 
 
@@ -65,6 +65,7 @@ if(interaçoes == 1){
     var addId = user.questionInt('digite o id do pokemon que deseja adicionar: ')
     pokedecks.push(addId)
     console.log(pokedecks)
+    menu()
 }if(interaçoes == 4){
     mostraDados()
 }

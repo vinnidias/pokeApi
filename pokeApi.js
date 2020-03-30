@@ -1,8 +1,39 @@
 var axios = require('axios')
 var user = require('readline-sync')
+var sql = require('sqlite3')
+var admin = require("firebase-admin");
 
-var ids = ['150: mewtwo', '149: dragonite','144: articuno','807: zeraora','6: charizard' ]
-var pokedecks= []
+var serviceAccount = require("./credenciais.json");
+
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://projeto-firebase-9635c.firebaseio.com"
+});
+
+var pokedex = 'Pokédex'
+var db = admin.database().ref(pokedex)
+
+function mostraPokedex(){
+    db.on('value', snapshot => {
+        console.log(snapshot.val())
+      menu()
+      })
+}
+
+function cadastraPokemon(){
+  var treinador = user.question('digite seu apelido de treinador: ')
+  var id = user.question('digite o id do seu pokemon: ')
+  var nome = user.question('digite o nome do seu pokemon: ')
+
+  db.push({
+      treinador: treinador,
+      id: id,
+      pokemon: nome
+  })
+menu()
+}
+
 
 function mostraDados(){
     var id = user.question('digite o id do pokemon: ')
@@ -60,7 +91,7 @@ console.clear
 console.log('=====================MOSTRE QUE VC É UM TREINADOR=====================')
 
 
-var interaçoes = user.questionInt('digite 1 parar pegar: \n digite 2 para status: \n digite 3 para adiconar ao seu pokedecks: \n digite 4 para mostrar os dados do pokemon: \n ')
+var interaçoes = user.questionInt('digite 1 parar pegar: \n digite 2 para status: \n digite 3 para adiconar ao seu pokedecks: \n digite 4 para ver os pokedex: \n digite 5 para mostrar os dados do pokemon: \n ')
 
 
 
@@ -69,12 +100,16 @@ if(interaçoes == 1){
 }if(interaçoes == 2){
     mostraStatus()
 }if(interaçoes == 3){
-    var addId = user.questionInt('digite o id do pokemon que deseja adicionar: ')
-    pokedecks.push(addId)
-    console.log(pokedecks)
-    menu()
+    
+    cadastraPokemon()
+    
 }if(interaçoes == 4){
+    
+    mostraPokedex()
+
+}if(interaçoes == 5){
     mostraDados()
+
 }
 }
 menu()

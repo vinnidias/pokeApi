@@ -23,14 +23,15 @@ function mostraPokedex(){
 
 function cadastraPokemon(){
   var treinador = user.question('digite seu apelido de treinador: ')
-  var id = user.question('digite o id do seu pokemon: ')
-  var nome = user.question('digite o nome do seu pokemon: ')
+  var id = user.question('digite o id do seu Pokemon: ')
+  var nome = user.question('digite o nome do seu Pokemon: ')
 
   db.push({
       treinador: treinador,
       id: id,
       pokemon: nome
   })
+  console.log('\n o professor recebeu os seu Pokemon!!!\n')
 menu()
 }
 
@@ -88,10 +89,10 @@ return console.log('boa treinador')
 
 function menu(){
 console.clear
-console.log('=====================MOSTRE QUE VC É UM TREINADOR=====================')
+console.log('\n =====================MOSTRE QUE VC É UM TREINADOR===================== \n')
 
 
-var interaçoes = user.questionInt('digite 1 parar pegar: \n digite 2 para status: \n digite 3 para adiconar ao seu pokedecks: \n digite 4 para ver os pokedex: \n digite 5 para mostrar os dados do pokemon: \n ')
+var interaçoes = user.questionInt(' digite 1 parar pegar um Pokemon: \n digite 2 para ver os statusdo do Pokemon: \n digite 3 para mostrar todos os dados do Pokemon: \n digite 4 para mandar para o professor: \n digite 5 para ver os pokedex dos treinadores: \n  ')
 
 
 
@@ -100,16 +101,11 @@ if(interaçoes == 1){
 }if(interaçoes == 2){
     mostraStatus()
 }if(interaçoes == 3){
-    
-    cadastraPokemon()
-    
+    mostraDados()   
 }if(interaçoes == 4){
-    
-    mostraPokedex()
-
+    cadastraPokemon()
 }if(interaçoes == 5){
-    mostraDados()
-
+    mostraPokedex()
 }
 }
 menu()

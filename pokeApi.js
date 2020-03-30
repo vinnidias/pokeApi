@@ -1,7 +1,7 @@
 var axios = require('axios')
 var user = require('readline-sync')
 
-var ids = ['150: mewtwo', '149: dragonite','140: articuno', ]
+var ids = ['150: mewtwo', '149: dragonite','144: articuno','807: zeraora','6: charizard' ]
 var pokedecks= []
 
 function mostraDados(){
@@ -12,7 +12,10 @@ function mostraDados(){
             console.log(resultado.data)
             menu()
         })
-    
+        .catch(erro => {
+            console.log('pokemon não encontrado',)
+            menu()
+        })
 }
 
 
@@ -25,7 +28,10 @@ function mostraStatus(){
             console.log(resultado.data.stats)
             menu()
         })
-        
+        .catch(erro =>{
+            console.log('pokemon não encontrado')
+            menu()
+        })
 }
 
 function PegaPokemon(){
@@ -42,7 +48,8 @@ axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
 })
 
 .catch(erro=>{
-    console.log('erro ao conectar', erro)
+    console.log('nenhum pokemon capturado, mas tudo bem, tente novamente')
+    menu()
 })
 return console.log('boa treinador')
 

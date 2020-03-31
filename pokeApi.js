@@ -21,18 +21,64 @@ function mostraPokedex(){
       })
 }
 
+function pokemonsDoMesmoTipo(){
+    var id = user.question('digite o id ou o nome do seu Pokemon: ')
+    axios.get(`https://pokeapi.co/api/v2/type/${id}`)
+        .then(resultado => {
+            console.log(resultado.data.pokemon)
+            menu()
+        })
+    .catch(erro => {
+        console.log('erro ao consultar Pokemon...')
+        menu()
+    })
+}
+
+function detalhesHabilidades(){
+    var id = user.question('digite o id ou o nome do Pokemon desejado: ')
+    axios.get(`https://pokeapi.co/api/v2/ability/${id}`)
+        .then(resultado => {
+            console.log(resultado.data.effect_entries)
+            menu()
+        })
+    .catch(erro =>{
+        console.log('erro ao consultar Pokemon...')
+    })
+}
+
+function detalhesTipo(){
+    var id = user.question('digite o id ou o nome do Pokemon: ')
+    
+    axios.get(`https://pokeapi.co/api/v2/type/${id}`)
+        .then(resultado =>{
+            console.log(resultado.data.damage_relations)
+            menu()
+        })
+    .catch(erro =>{
+        console.log('erro ao consultar o Pokemon...')
+        menu()
+    })
+}
+
 function cadastraPokemon(){
   var treinador = user.question('digite seu apelido de treinador: ')
-  var id = user.question('digite o id do seu Pokemon: ')
-  var nome = user.question('digite o nome do seu Pokemon: ')
-
-  db.push({
-      treinador: treinador,
-      id: id,
-      pokemon: nome
+  var id = user.question('digite o id ou o nome do seu Pokemon: ')
+  axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
+    .then(resultado =>{
+        db.push({
+            treinador: treinador,
+            id: id,
+            pokemon: resultado.data.name,
+            tipo: resultado.data.types,
+            habilidades: resultado.data.abilities
+        })
+        console.log('\n seu Pokemon foi adicionado ao pokedex!!!\n')
+      menu()
+    })
+  .catch(erro =>{
+      console.log('erro ao cadastrar o pokemon')
+      menu()
   })
-  console.log('\n o professor recebeu os seu Pokemon!!!\n')
-menu()
 }
 
 
@@ -51,21 +97,20 @@ function mostraDados(){
 }
 
 
-function mostraStatus(){
+function mostraPokemon(){
     
-    var id = user.question('digite o id do pokemon: ')
-
+    var id = user.question('digite o id ou o nome do Pokemon desejado: ')
+    
     axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
-        .then(resultado => {
-            console.log(resultado.data.stats)
-            menu()
-        })
-        .catch(erro =>{
-            console.log('pokemon não encontrado')
-            menu()
-        })
+    .then(resultado =>{
+        
+        console.log(resultado.data.name)
+        console.log(resultado.data.types)
+        console.log(resultado.data.abilities)
+        console.log('\n')
+        menu()
+    })
 }
-
 function PegaPokemon(){
     
 var id = user.question('digite um numero para pegar um Pokemon: ')
@@ -89,27 +134,29 @@ return console.log('boa treinador')
 
 function menu(){
 console.clear
-console.log('\n =====================MOSTRE QUE VC É UM TREINADOR===================== \n')
+console.log('\n ===================== MOSTRE QUE VC É UM TREINADOR ===================== \n')
 
 
-var interaçoes = user.questionInt(' digite 1 parar pegar um Pokemon: \n digite 2 para ver os statusdo do Pokemon: \n digite 3 para mostrar todos os dados do Pokemon: \n digite 4 para mandar para o professor: \n digite 5 para ver os pokedex dos treinadores: \n  ')
+var interaçoes = user.questionInt(' digite 1 parar pegar um Pokemon: \n digite 2 para ver as habilidades e o tipo de um pokemon de sua escolha: \n digite 3 para adicionar o seu Pokemon ao pokedex: \n digite 4 para ver os pokedex dos treinadores: \n digite 5 para mostrar todos os dados do Pokemon: \n digite 6 para ver detalhes do tipo do seu Pokemon: \n digite 7 para mostrar Pokemons do mesmo tipo que o seu:  \n digite 8 para ver em detalhes as habilidades do seu Pokemon: \n ')
 
 
 
 if(interaçoes == 1){
     PegaPokemon()
 }if(interaçoes == 2){
-    mostraStatus()
+    mostraPokemon()    
 }if(interaçoes == 3){
-    mostraDados()   
-}if(interaçoes == 4){
     cadastraPokemon()
-}if(interaçoes == 5){
+}if(interaçoes == 4){
     mostraPokedex()
+}if(interaçoes == 5){
+    mostraDados()
+}if(interaçoes == 6){
+    detalhesTipo()
+}if(interaçoes == 7){
+    pokemonsDoMesmoTipo()
+}if(interaçoes == 8){
+    detalhesHabilidades()
 }
 }
 menu()
-
-
-
-

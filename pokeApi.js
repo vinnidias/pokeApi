@@ -137,7 +137,7 @@ console.clear
 console.log('\n ===================== MOSTRE QUE VC É UM TREINADOR ===================== \n')
 
 
-var interaçoes = user.questionInt(' digite 1 parar pegar um Pokemon: \n digite 2 para ver as habilidades e o tipo de um pokemon de sua escolha: \n digite 3 para adicionar o seu Pokemon ao pokedex: \n digite 4 para ver os pokedex dos treinadores: \n digite 5 para mostrar todos os dados do Pokemon: \n digite 6 para ver detalhes do tipo do seu Pokemon: \n digite 7 para mostrar Pokemons do mesmo tipo que o seu:  \n digite 8 para ver em detalhes as habilidades do seu Pokemon: \n ')
+var interaçoes = user.questionInt(' digite 1 parar pegar um Pokemon: \n digite 2 para ver o nome, as habilidades e o tipo de um pokemon de sua escolha: \n digite 3 para adicionar o seu Pokemon ao pokedex: \n digite 4 para ver os pokedex dos treinadores: \n digite 5 para mostrar todos os dados do Pokemon: \n digite 6 para ver detalhes do tipo do seu Pokemon: \n digite 7 para mostrar Pokemons do mesmo tipo que o seu:  \n digite 8 para ver em detalhes as habilidades do seu Pokemon: \n ')
 
 
 

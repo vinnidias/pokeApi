@@ -1,6 +1,6 @@
 var axios = require('axios')
 var user = require('readline-sync')
-var sql = require('sqlite3')
+
 var admin = require("firebase-admin");
 
 var serviceAccount = require("./credenciais.json");
@@ -73,7 +73,7 @@ function cadastraPokemon(){
             habilidades: resultado.data.abilities
         })
         console.log('\n seu Pokemon foi adicionado ao pokedex!!!\n')
-      menu()
+        menu()
     })
   .catch(erro =>{
       console.log('erro ao cadastrar o pokemon')
@@ -87,7 +87,7 @@ function mostraDados(){
 
     axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
         .then(resultado => {
-            console.log(resultado.data)
+            console.log(resultado.data.types)
             menu()
         })
         .catch(erro => {

@@ -40,20 +40,25 @@ function pokemonsDoMesmoTipo(){
 function detalhesHabilidades(){
     var id = user.question('digite o id ou o nome do Pokemon desejado: ')
     axios.get(`https://pokeapi.co/api/v2/ability/${id}`)
-        .then(resultado => {
-            console.log(resultado.data.effect_entries)
-            menu()
-        })
+    .then(resultado => {
+        var efeito = resultado.data.effect_entries
+        for (i = 0; i < efeito.length; i++) {
+          console.log(`\n ${efeito[i].effect}`)
+        }
+        menu()
+      })
     .catch(erro =>{
         console.log('erro ao consultar Pokemon...')
     })
 }
 
 function detalhesTipo(){
+    
     var id = user.question('digite o id ou o nome do Pokemon: ')
     
     axios.get(`https://pokeapi.co/api/v2/type/${id}`)
         .then(resultado =>{
+        
             console.log(resultado.data.damage_relations)
             menu()
         })
@@ -107,11 +112,17 @@ function mostraPokemon(){
     
     axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
     .then(resultado =>{
-        
-        console.log(resultado.data.name)
-        console.log(resultado.data.types)
-        console.log(resultado.data.abilities)
+        var nome = resultado.data.name
+        var tipo = resultado.data.types
+        var habilidades = resultado.data.abilities
+        console.log(nome)
+        tipo.map(pokemon =>{console.log(`Tipo: ${pokemon.type.name}`)})
+        habilidades.map(pokemon=>{console.log(`as habilidades do seu Pokemon: ${pokemon.ability.name}`) })
         console.log('\n')
+        menu()
+    })
+    .catch(erro=>{
+        console.log('erro ao consultar, tente novamente')
         menu()
     })
 }
@@ -141,7 +152,7 @@ console.clear
 console.log('\n ===================== MOSTRE QUE VC É UM TREINADOR ===================== \n')
 
 
-var interaçoes = user.questionInt(' digite 1 parar pegar um Pokemon: \n digite 2 para ver o nome, as habilidades e o tipo de um pokemon de sua escolha: \n digite 3 para adicionar o seu Pokemon ao pokedex: \n digite 4 para ver os pokedex dos treinadores: \n digite 5 para mostrar todos os dados do Pokemon: \n digite 6 para ver detalhes do tipo do seu Pokemon: \n digite 7 para mostrar Pokemons do mesmo tipo que o seu:  \n digite 8 para ver em detalhes as habilidades do seu Pokemon: \n ')
+var interaçoes = user.questionInt(' digite 1 parar pegar um Pokemon: \n digite 2 para ver o nome, as habilidades e o tipo de um pokemon de sua escolha: \n digite 3 para adicionar o seu Pokemon ao pokedex: \n digite 4 para ver os pokedex dos treinadores: \n digite 5 para mostrar todos os dados do Pokemon: \n digite 6 para ver as relacoes de dano do tipo do seu Pokemon: \n digite 7 para mostrar Pokemons do mesmo tipo que o seu:  \n digite 8 para ver os efeitos passivos de habilidades do seu Pokemon: \n ')
 
 
 

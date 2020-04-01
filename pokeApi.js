@@ -49,6 +49,7 @@ function detalhesHabilidades(){
       })
     .catch(erro =>{
         console.log('erro ao consultar Pokemon...')
+        menu()
     })
 }
 
@@ -117,7 +118,7 @@ function mostraPokemon(){
         var habilidades = resultado.data.abilities
         console.log(nome)
         tipo.map(pokemon =>{console.log(`Tipo: ${pokemon.type.name}`)})
-        habilidades.map(pokemon=>{console.log(`as habilidades do seu Pokemon: ${pokemon.ability.name}`) })
+        habilidades.map(pokemon=>{console.log(`Habilidade: ${pokemon.ability.name}`) })
         console.log('\n')
         menu()
     })

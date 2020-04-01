@@ -12,10 +12,13 @@ admin.initializeApp({
 });
 
 var pokedex = 'Pokédex'
-var db = admin.database().ref(pokedex)
+var db = ref => admin.database().ref(ref)
+
+var pokedexTreinador = treinador => `${pokedex}/${treinador}`
 
 function mostraPokedex(){
-    db.on('value', snapshot => {
+    var treinador = user.question('digite o nome do treinador: ')
+    db(pokedexTreinador(treinador)).on('value', snapshot => {
         console.log(snapshot.val())
       menu()
       })
@@ -65,12 +68,13 @@ function cadastraPokemon(){
   var id = user.question('digite o id ou o nome do seu Pokemon: ')
   axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
     .then(resultado =>{
-        db.push({
+        db(pokedexTreinador(treinador)).push({
             treinador: treinador,
             id: id,
             pokemon: resultado.data.name,
             tipo: resultado.data.types,
             habilidades: resultado.data.abilities
+    
         })
         console.log('\n seu Pokemon foi adicionado ao pokedex!!!\n')
         menu()
@@ -87,7 +91,7 @@ function mostraDados(){
 
     axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
         .then(resultado => {
-            console.log(resultado.data.types)
+            console.log(resultado.data)
             menu()
         })
         .catch(erro => {

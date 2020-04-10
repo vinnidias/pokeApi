@@ -1,10 +1,8 @@
 var axios = require('axios')
 var user = require('readline-sync')
-
 var admin = require("firebase-admin");
 
 var serviceAccount = require("./credenciais.json");
-
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -13,14 +11,13 @@ admin.initializeApp({
 
 var pokedex = 'Pokédex'
 var db = ref => admin.database().ref(ref)
-
 var pokedexTreinador = treinador => `${pokedex}/${treinador}`
 
 function cadastraPokemon(){
     var treinador = user.question('digite seu apelido de treinador: ')
     var id = user.question('digite o id ou o nome do seu Pokemon: ')
     axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
-      .then(resultado =>{
+        .then(resultado =>{
           db(pokedexTreinador(treinador)).push({
               treinador: treinador,
               id: id,
@@ -31,7 +28,7 @@ function cadastraPokemon(){
           console.log('\n seu Pokemon foi adicionado ao pokedex!!!\n')
           menu()
         })
-    .catch(erro =>{
+        .catch(erro =>{
         console.log('erro ao cadastrar o pokemon')
         menu()
     })
@@ -49,10 +46,10 @@ function pokemonsDoMesmoTipo(){
     var id = user.question('digite o id ou o nome do seu Pokemon: ')
     axios.get(`https://pokeapi.co/api/v2/type/${id}`)
         .then(resultado => {
-            console.log(resultado.data.pokemon)
+          console.log(resultado.data.pokemon.name)
             menu()
         })
-    .catch(erro => {
+        .catch(erro => {
         console.log('erro ao consultar Pokemon...')
         menu()
     })
@@ -61,30 +58,28 @@ function pokemonsDoMesmoTipo(){
 function detalhesHabilidades(){
     var id = user.question('digite o id ou o nome do Pokemon desejado: ')
     axios.get(`https://pokeapi.co/api/v2/ability/${id}`)
-    .then(resultado => {
+        .then(resultado => {
         var efeito = resultado.data.effect_entries
         for (i = 0; i < efeito.length; i++) {
           console.log(`\n ${efeito[i].effect}`)
         }
         menu()
-      })
-    .catch(erro =>{
+        })
+        .catch(erro =>{
         console.log('erro ao consultar Pokemon...')
         menu()
     })
 }
 
 function detalhesTipo(){
-    
     var id = user.question('digite o id ou o nome do Pokemon: ')
-    
     axios.get(`https://pokeapi.co/api/v2/type/${id}`)
         .then(resultado =>{
         
             console.log(resultado.data.damage_relations)
             menu()
         })
-    .catch(erro =>{
+        .catch(erro =>{
         console.log('erro ao consultar o Pokemon...')
         menu()
     })
@@ -92,7 +87,6 @@ function detalhesTipo(){
 
 function mostraDados(){
     var id = user.question('digite o id do pokemon: ')
-
     axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
         .then(resultado => {
             console.log(resultado.data)
@@ -104,13 +98,10 @@ function mostraDados(){
         })
 }
 
-
 function mostraPokemon(){
-    
     var id = user.question('digite o id ou o nome do Pokemon desejado: ')
-    
     axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
-    .then(resultado =>{
+        .then(resultado =>{
         var nome = resultado.data.name
         var tipo = resultado.data.types
         var habilidades = resultado.data.abilities
@@ -119,29 +110,26 @@ function mostraPokemon(){
         habilidades.map(pokemon=>{console.log(`Habilidade: ${pokemon.ability.name}`) })
         console.log('\n')
         menu()
-    })
-    .catch(erro=>{
+        })
+        .catch(erro=>{
         console.log('erro ao consultar, tente novamente')
         menu()
     })
 }
+
 function PegaPokemon(){
-    
-var id = user.question('digite um numero para pegar um Pokemon: ')
-
-axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
-    .then(resultado =>{
-    
-    console.log(`vc pegou o ${resultado.data.name}!!! \n o numero q vc digitou corresponde ao id do pokemon: ${id}`)
-    console.log('\n')
-    menu()
-})
-
-.catch(erro=>{
+    var id = user.question('digite um numero para pegar um Pokemon: ')
+    axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
+        .then(resultado =>{
+        console.log(`vc pegou o ${resultado.data.name}!!! \n o numero q vc digitou corresponde ao id do pokemon: ${id}`)
+        console.log('\n')
+        menu()
+        })
+        .catch(erro=>{
     console.log('nenhum pokemon capturado, mas tudo bem, tente novamente')
     menu()
-})
-return console.log('boa treinador')
+    })
+    return console.log('boa treinador')
 } 
 
 function sair(){

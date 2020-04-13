@@ -58,12 +58,14 @@ function pokemonsDoMesmoTipo(){
 }
 
 function detalhesHabilidades(){
-    var id = user.question('digite o id ou o nome do Pokemon desejado: ')
+    var id = user.question('digite o nome da habilidade do Pokemon desejado: ')
     axios.get(`https://pokeapi.co/api/v2/ability/${id}`)
         .then(resultado => {
         var efeito = resultado.data.effect_entries
+        var data = resultado.data
         for (i = 0; i < efeito.length; i++) {
           console.log(`\n ${efeito[i].effect}`)
+          
         }
         menu()
         })

@@ -111,7 +111,7 @@ function detalhesTipo(){
 
 function mostraDados(){
     var id = user.question('digite o id do pokemon: ')
-    axios.get(`https://pokeapi.co/api/v2/type/${id}`)
+    axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
         .then(resultado => {
             console.log(resultado.data)
             menu()

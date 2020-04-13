@@ -43,10 +43,12 @@ function mostraPokedex(){
 }
 
 function pokemonsDoMesmoTipo(){
-    var id = user.question('digite o id ou o nome do seu Pokemon: ')
-    axios.get(`https://pokeapi.co/api/v2/type/${id}`)
+    console.log('ids dos tipo:\n 1 normal;\n 2 lutador;\n 3 voador;\n 4 venenoso;\n 5 terra;\n 6 pedra;\n 7 inseto;\n 8 fantansma;\n 9 aço;\n 10 fogo;\n 11 agua;\n 12 grama; \n 13 eletrico;\n 14 psiquíco; 15 gelo;\n 16 dragao;\n 17 escuridao;\n 18 fada;\n ')
+    var id = user.question('digite o id tipo do seu Pokemon: ')
+    axios.get(`https://pokeapi.co/api/v2/type/${id}/`)
         .then(resultado => {
-          console.log(resultado.data.pokemon.name)
+         var pokemonsDoMesmoTipo = resultado.data.pokemon
+            console.log(pokemonsDoMesmoTipo)
             menu()
         })
         .catch(erro => {
@@ -72,11 +74,32 @@ function detalhesHabilidades(){
 }
 
 function detalhesTipo(){
-    var id = user.question('digite o id ou o nome do Pokemon: ')
+    console.log('ids dos tipo:\n 1 normal;\n 2 lutador;\n 3 voador;\n 4 venenoso;\n 5 terra;\n 6 pedra;\n 7 inseto;\n 8 fantansma;\n 9 aço;\n 10 fogo;\n 11 agua;\n 12 grama; \n 13 eletrico;\n 14 psiquíco; 15 gelo;\n 16 dragao;\n 17 escuridao;\n 18 fada;\n ')
+    var id = user.question('digite o id tipo do Pokemon: ')
     axios.get(`https://pokeapi.co/api/v2/type/${id}`)
         .then(resultado =>{
-        
-            console.log(resultado.data.damage_relations)
+            var recebeDobro = resultado.data.damage_relations.double_damage_from
+            var aplicaDobro = resultado.data.damage_relations.double_damage_to
+            var recebeMeioDano = resultado.data.damage_relations.half_damage_from
+            var aplicaMeioDano = resultado.data.damage_relations.half_damage_to
+            var recebeDanoNulo = resultado.data.damage_relations.no_damage_from
+            var aplicaDanoNulo = resultado.data.damage_relations.no_damage_to
+            console.log(`\n ${resultado.data.name}`)
+            for(i=0; i < recebeDobro.length; i++){
+                console.log(`\n recebe o dobro de: ${recebeDobro[i].name}`)
+            }
+            for(i=0;i<aplicaDobro.length;i++){
+                console.log(`\n aplica dobro para: ${aplicaDobro[i.name]}`)
+            }
+            for(i=0;i<recebeMeioDano.length;i++){
+                console.log(`\n recebe metade de dano de: ${recebeMeioDano[i].name}`)
+            }for(i=0;aplicaMeioDano.length;i++){
+                console.log(`\n aplica metade de dano para: ${aplicaMeioDano[i].name}`)
+            }for(i=0;i<recebeDanoNulo.length;i++){
+                console.log(`\n recebe dano nulo de: ${recebeDanoNulo[i].name}`)
+            }for(i=0;i<aplicaDanoNulo;i++){
+                console.log(`\n aplica dano nulo para: ${aplicaDanoNulo[i].name}`)
+            }
             menu()
         })
         .catch(erro =>{
@@ -87,9 +110,9 @@ function detalhesTipo(){
 
 function mostraDados(){
     var id = user.question('digite o id do pokemon: ')
-    axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
+    axios.get(`https://pokeapi.co/api/v2/type/${id}`)
         .then(resultado => {
-            console.log(resultado.data)
+            console.log(resultado.data.pokemon)
             menu()
         })
         .catch(erro => {

@@ -113,7 +113,7 @@ function mostraDados(){
     var id = user.question('digite o id do pokemon: ')
     axios.get(`https://pokeapi.co/api/v2/type/${id}`)
         .then(resultado => {
-            console.log(resultado.data.pokemon)
+            console.log(resultado.data)
             menu()
         })
         .catch(erro => {

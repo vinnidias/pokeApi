@@ -65,7 +65,6 @@ function detalhesHabilidades(){
         var data = resultado.data
         for (i = 0; i < efeito.length; i++) {
           console.log(`\n ${efeito[i].effect}`)
-          
         }
         menu()
         })

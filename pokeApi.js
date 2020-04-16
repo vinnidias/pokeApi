@@ -184,6 +184,9 @@ if(interaçoes === '1'){
     detalhesHabilidades()
 }if (interaçoes.toUpperCase() === "S"){
     sair()
+}else{
+    console.log('opçao invalida...')
+    menu()
 }
 }
 menu()

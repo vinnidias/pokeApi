@@ -5,7 +5,7 @@ Disponibilizando um menu de 8 opções para usuário, é possível fazer a leitu
 
 ## Instalação
 
-Clone este repositório no seu disco local e execute o comando pokeApi no seu terminal do done
+Clone este repositório no seu disco local e execute o comando pokeApi no seu terminal do node
 
 ```bash
 node ./pokeApi.js
